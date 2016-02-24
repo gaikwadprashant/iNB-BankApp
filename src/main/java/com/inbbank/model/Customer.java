@@ -17,6 +17,7 @@ import java.util.Set;
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	
 	@Id
 	@Column(unique=true, nullable=false, length=50)
 	private String id;
@@ -25,31 +26,31 @@ public class Customer implements Serializable {
 	private String address;
 
 	@Column(length=50)
-	private String applicationstatus;
+	private String applicationStatus;
 
 	@Column(length=50)
-	private String authorizedimagename;
+	private String authorizedImageName;
 
 	@Column(length=50)
-	private String authorizedimagetext;
+	private String authorizedImageText;
 
 	@Column(precision=10)
-	private BigDecimal customerid;
+	private BigDecimal customerId;
 
 	@Temporal(TemporalType.DATE)
-	private Date dateofbirth;
+	private Date dateOfBirth;
 
 	@Column(length=50)
 	private String email;
 
 	@Column(precision=10)
-	private BigDecimal enqid;
+	private BigDecimal enqId;
 
 	@Column(length=50)
-	private String firstname;
+	private String firstName;
 
 	@Column(length=50)
-	private String lastname;
+	private String lastName;
 
 	@Column(length=50)
 	private String password;
@@ -58,135 +59,164 @@ public class Customer implements Serializable {
 	private BigDecimal phone;
 
 	@Column(length=50)
-	private String username;
+	private String userName;
 
 	//bi-directional many-to-one association to Account
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<Account> accounts;
 
 	//bi-directional many-to-one association to Branch
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="BRANCHID")
 	private Branch branch;
 
 	//bi-directional many-to-one association to CustDocument
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<CustDocument> custDocuments;
 
 	public Customer() {
 	}
 
+
 	public String getId() {
-		return this.id;
+		return id;
 	}
+
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
+
 	public String getAddress() {
-		return this.address;
+		return address;
 	}
+
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public String getApplicationstatus() {
-		return this.applicationstatus;
+
+	public String getApplicationStatus() {
+		return applicationStatus;
 	}
 
-	public void setApplicationstatus(String applicationstatus) {
-		this.applicationstatus = applicationstatus;
+
+	public void setApplicationStatus(String applicationStatus) {
+		this.applicationStatus = applicationStatus;
 	}
 
-	public String getAuthorizedimagename() {
-		return this.authorizedimagename;
+
+	public String getAuthorizedImageName() {
+		return authorizedImageName;
 	}
 
-	public void setAuthorizedimagename(String authorizedimagename) {
-		this.authorizedimagename = authorizedimagename;
+
+	public void setAuthorizedImageName(String authorizedImageName) {
+		this.authorizedImageName = authorizedImageName;
 	}
 
-	public String getAuthorizedimagetext() {
-		return this.authorizedimagetext;
+
+	public String getAuthorizedImageText() {
+		return authorizedImageText;
 	}
 
-	public void setAuthorizedimagetext(String authorizedimagetext) {
-		this.authorizedimagetext = authorizedimagetext;
+
+	public void setAuthorizedImageText(String authorizedImageText) {
+		this.authorizedImageText = authorizedImageText;
 	}
 
-	public BigDecimal getCustomerid() {
-		return this.customerid;
+
+	public BigDecimal getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomerid(BigDecimal customerid) {
-		this.customerid = customerid;
+
+	public void setCustomerId(BigDecimal customerId) {
+		this.customerId = customerId;
 	}
 
-	public Date getDateofbirth() {
-		return this.dateofbirth;
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDateofbirth(Date dateofbirth) {
-		this.dateofbirth = dateofbirth;
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
+
 
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
+
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public  BigDecimal getEnqid() {
-		return this.enqid;
+
+	public BigDecimal getEnqId() {
+		return enqId;
 	}
 
-	public void setEnqid(BigDecimal enqid) {
-		this.enqid = enqid;
+
+	public void setEnqId(BigDecimal enqId) {
+		this.enqId = enqId;
 	}
 
-	public String getFirstname() {
-		return this.firstname;
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return this.lastname;
+
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
+
 
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
+
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+
 	public BigDecimal getPhone() {
-		return this.phone;
+		return phone;
 	}
+
 
 	public void setPhone(BigDecimal phone) {
 		this.phone = phone;
 	}
 
-	public String getUsername() {
-		return this.username;
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
+
 
 	public Set<Account> getAccounts() {
 		return this.accounts;

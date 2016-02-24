@@ -20,64 +20,86 @@ public class Account implements Serializable {
 	private String id;
 
 	@Column(precision=20)
-	private BigDecimal accountnumber;
+	private BigDecimal accountNumber;
 
 	@Column(length=50)
-	private String accounttype;
+	private String accountType;
 
 	@Column(precision=10, scale=2)
 	private BigDecimal balance;
 
 	@Column(precision=10, scale=2)
-	private BigDecimal interestrate;
+	private BigDecimal interestRate;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinColumn(name="CUSTID")
 	private Customer customer;
 
 	public Account() {
 	}
 
+
+
 	public String getId() {
-		return this.id;
+		return id;
 	}
+
+
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public BigDecimal getAccountnumber() {
-		return this.accountnumber;
+
+
+	public BigDecimal getAccountNumber() {
+		return accountNumber;
 	}
 
-	public void setAccountnumber(BigDecimal accountnumber) {
-		this.accountnumber = accountnumber;
+
+
+	public void setAccountNumber(BigDecimal accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
-	public String getAccounttype() {
-		return this.accounttype;
+
+
+	public String getAccountType() {
+		return accountType;
 	}
 
-	public void setAccounttype(String accounttype) {
-		this.accounttype = accounttype;
+
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
 	}
+
+
 
 	public BigDecimal getBalance() {
-		return this.balance;
+		return balance;
 	}
+
+
 
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
-	public BigDecimal getInterestrate() {
-		return this.interestrate;
+
+
+	public BigDecimal getInterestRate() {
+		return interestRate;
 	}
 
-	public void setInterestrate(BigDecimal interestrate) {
-		this.interestrate = interestrate;
+
+
+	public void setInterestRate(BigDecimal interestRate) {
+		this.interestRate = interestRate;
 	}
+
+
 
 	public Customer getCustomer() {
 		return this.customer;

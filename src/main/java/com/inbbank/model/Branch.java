@@ -24,16 +24,16 @@ public class Branch implements Serializable {
 	private String address;
 
 	@Column(length=50)
-	private String branchname;
+	private String branchName;
 
 	@Column(precision=10)
 	private BigDecimal contact;
 
 	@Column(length=50)
-	private String ifsccode;
+	private String ifscCode;
 
 	//bi-directional many-to-one association to Branchmanager
-	@OneToMany(mappedBy="branch")
+	@OneToMany(mappedBy="branch", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<Branchmanager> branchmanagers;
 
 	//bi-directional many-to-one association to Customer
@@ -43,45 +43,56 @@ public class Branch implements Serializable {
 	public Branch() {
 	}
 
+	
 	public String getId() {
-		return this.id;
+		return id;
 	}
+
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
+
 	public String getAddress() {
-		return this.address;
+		return address;
 	}
+
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public String getBranchname() {
-		return this.branchname;
+
+	public String getBranchName() {
+		return branchName;
 	}
 
-	public void setBranchname(String branchname) {
-		this.branchname = branchname;
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
 	}
+
 
 	public BigDecimal getContact() {
-		return this.contact;
+		return contact;
 	}
+
 
 	public void setContact(BigDecimal contact) {
 		this.contact = contact;
 	}
 
-	public String getIfsccode() {
-		return this.ifsccode;
+
+	public String getIfscCode() {
+		return ifscCode;
 	}
 
-	public void setIfsccode(String ifsccode) {
-		this.ifsccode = ifsccode;
+
+	public void setIfscCode(String ifscCode) {
+		this.ifscCode = ifscCode;
 	}
+
 
 	public Set<Branchmanager> getBranchmanagers() {
 		return this.branchmanagers;

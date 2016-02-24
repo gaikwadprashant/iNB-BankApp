@@ -31,9 +31,12 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		return true;
 	}
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<Customer> getCustomer() {
 		// TODO Auto-generated method stub
-		return null;
+		System.out.println("getCustomer");
+		List<Customer> custmerList= sessionFactory.getCurrentSession().createQuery("from Customer ").list();
+		return custmerList;
 	}
 
 }

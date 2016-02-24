@@ -24,16 +24,16 @@ public class Branchmanager implements Serializable {
 	private String address;
 
 	@Temporal(TemporalType.DATE)
-	private Date dateofbirth;
+	private Date dateOfBirth;
 
 	@Column(length=50)
 	private String email;
 
 	@Column(length=50)
-	private String firstname;
+	private String firstName;
 
 	@Column(length=50)
-	private String lastname;
+	private String lastName;
 
 	@Column(length=50)
 	private String password;
@@ -42,87 +42,125 @@ public class Branchmanager implements Serializable {
 	private BigDecimal phone;
 
 	@Column(length=50)
-	private String username;
+	private String userName;
 
 	//bi-directional many-to-one association to Branch
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="BRANCHID")
 	private Branch branch;
 
 	public Branchmanager() {
 	}
 
+	
+
 	public String getId() {
-		return this.id;
+		return id;
 	}
+
+
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
+
+
 	public String getAddress() {
-		return this.address;
+		return address;
 	}
+
+
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public Date getDateofbirth() {
-		return this.dateofbirth;
+
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDateofbirth(Date dateofbirth) {
-		this.dateofbirth = dateofbirth;
+
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
+
+
 
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
+
+
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getFirstname() {
-		return this.firstname;
+
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return this.lastname;
+
+
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
+
+
 
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
+
+
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+
+
 	public BigDecimal getPhone() {
-		return this.phone;
+		return phone;
 	}
+
+
 
 	public void setPhone(BigDecimal phone) {
 		this.phone = phone;
 	}
 
-	public String getUsername() {
-		return this.username;
+
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
+
+
 
 	public Branch getBranch() {
 		return this.branch;

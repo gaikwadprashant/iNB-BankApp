@@ -36,7 +36,7 @@ public class CustomerController {
 
 		}
 	 
-	 @RequestMapping(value="/getcustomer",  method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,consumes =MediaType.APPLICATION_JSON_VALUE)
+	 @RequestMapping(value="/viewcustomer",  method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,consumes =MediaType.APPLICATION_JSON_VALUE)
 		public List<Customer> getCustomer() {
 		 List<Customer> customers=null;
 		 try{
