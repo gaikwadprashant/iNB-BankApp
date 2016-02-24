@@ -42,8 +42,8 @@ public class Customer implements Serializable {
 	@Column(length=50)
 	private String email;
 
-	@Column(length=50)
-	private String enqid;
+	@Column(precision=10)
+	private BigDecimal enqid;
 
 	@Column(length=50)
 	private String firstname;
@@ -140,11 +140,11 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public String getEnqid() {
+	public  BigDecimal getEnqid() {
 		return this.enqid;
 	}
 
-	public void setEnqid(String enqid) {
+	public void setEnqid(BigDecimal enqid) {
 		this.enqid = enqid;
 	}
 
