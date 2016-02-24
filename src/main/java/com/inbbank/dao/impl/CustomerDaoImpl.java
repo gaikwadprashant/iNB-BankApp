@@ -4,6 +4,7 @@ package com.inbbank.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,11 +32,12 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		return true;
 	}
+	@SuppressWarnings("unchecked")
 	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<Customer> getCustomer() {
-		// TODO Auto-generated method stub
-		System.out.println("getCustomer");
-		List<Customer> custmerList= sessionFactory.getCurrentSession().createQuery("from Customer ").list();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Customer.class);
+		criteria.createAlias("branch", "branch");
+		List<Customer> custmerList = criteria.list();
 		return custmerList;
 	}
 

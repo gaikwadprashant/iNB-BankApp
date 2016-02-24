@@ -1,7 +1,10 @@
 package com.inbbank.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
@@ -62,16 +65,16 @@ public class Customer implements Serializable {
 	private String userName;
 
 	//bi-directional many-to-one association to Account
-	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<Account> accounts;
 
 	//bi-directional many-to-one association to Branch
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BRANCHID")
 	private Branch branch;
 
 	//bi-directional many-to-one association to CustDocument
-	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<CustDocument> custDocuments;
 
 	public Customer() {
@@ -239,7 +242,6 @@ public class Customer implements Serializable {
 
 		return account;
 	}
-
 	public Branch getBranch() {
 		return this.branch;
 	}
@@ -247,7 +249,6 @@ public class Customer implements Serializable {
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-
 	public Set<CustDocument> getCustDocuments() {
 		return this.custDocuments;
 	}

@@ -1,7 +1,10 @@
 package com.inbbank.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -93,7 +96,6 @@ public class Branch implements Serializable {
 		this.ifscCode = ifscCode;
 	}
 
-
 	public Set<Branchmanager> getBranchmanagers() {
 		return this.branchmanagers;
 	}
@@ -115,7 +117,6 @@ public class Branch implements Serializable {
 
 		return branchmanager;
 	}
-
 	public Set<Customer> getCustomers() {
 		return this.customers;
 	}

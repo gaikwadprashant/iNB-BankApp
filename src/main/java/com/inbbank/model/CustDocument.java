@@ -1,7 +1,10 @@
 package com.inbbank.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+
 
 
 /**

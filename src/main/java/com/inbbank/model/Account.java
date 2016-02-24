@@ -1,7 +1,11 @@
 package com.inbbank.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+
+
 import java.math.BigDecimal;
 
 
@@ -32,7 +36,7 @@ public class Account implements Serializable {
 	private BigDecimal interestRate;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+	@ManyToOne(cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
 	@JoinColumn(name="CUSTID")
 	private Customer customer;
 
@@ -98,7 +102,6 @@ public class Account implements Serializable {
 	public void setInterestRate(BigDecimal interestRate) {
 		this.interestRate = interestRate;
 	}
-
 
 
 	public Customer getCustomer() {
