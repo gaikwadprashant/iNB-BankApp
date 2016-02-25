@@ -15,12 +15,10 @@ public class ManagerServiceImpl implements ManagerService {
 	@Autowired
 	private BranchmanagerDao branchmanagerDao;
 
-	@Override
 	public void createBranchManager(Branchmanager branchmanager) throws Exception {
 		branchmanagerDao.createBranchManager(branchmanager);
 	}
 
-	@Override
 	public List<Branchmanager> getBranchManagers() throws Exception {
 		return branchmanagerDao.getBranchManagers();
 	}
