@@ -5,8 +5,6 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.inbbank.dao.BranchDao;
 import com.inbbank.model.Branch;
@@ -23,18 +21,12 @@ public class BranchDaoImpl implements BranchDao {
 		return null;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean createBranch(Branch branch) throws Exception {
-		try {
 			branch.setId(GenerateUUID.getRendomString());
 			sessionFactory.getCurrentSession().save(branch);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return true;
 	}
 
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<Branch> getBranches() throws Exception {
 		String query =" from Branch"; 
 		List<Branch> list = sessionFactory.getCurrentSession().createQuery(query).list();

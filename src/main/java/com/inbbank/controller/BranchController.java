@@ -49,8 +49,13 @@ public class BranchController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 		return branchList;
+	}
+	
+	@RequestMapping(value = "/branch/", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<WSBranch> getAllBranch() {
+		return getBranch();
 	}
 }
