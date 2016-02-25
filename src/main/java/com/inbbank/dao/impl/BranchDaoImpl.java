@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inbbank.dao.BranchDao;
 import com.inbbank.model.Branch;
+import com.inbbank.util.GenerateUUID;
 
 @Service
 public class BranchDaoImpl implements BranchDao {
@@ -25,6 +26,7 @@ public class BranchDaoImpl implements BranchDao {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean createBranch(Branch branch) throws Exception {
 		try {
+			branch.setId(GenerateUUID.getRendomString());
 			sessionFactory.getCurrentSession().save(branch);
 		} catch (Exception e) {
 			e.printStackTrace();
