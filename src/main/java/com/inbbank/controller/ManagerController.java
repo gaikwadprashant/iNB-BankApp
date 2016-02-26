@@ -6,6 +6,7 @@ import java.util.List;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import com.inbbank.service.ManagerService;
 import com.inbbank.wsentity.WSBranchManager;
 
 @RestController
+@CrossOrigin
 public class ManagerController {
 
 	@Autowired
