@@ -18,17 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.inbbank.model.Account;
-import com.inbbank.model.Branch;
+
+
 import com.inbbank.model.CustDocument;
 import com.inbbank.model.Customer;
 import com.inbbank.model.Status;
 import com.inbbank.service.CustomerService;
-import com.inbbank.util.GenerateUUID;
 import com.inbbank.wsentity.WSCustomer;
-
-
-
 
 @RestController
 @CrossOrigin
