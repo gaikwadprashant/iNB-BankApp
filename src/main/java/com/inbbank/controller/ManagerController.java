@@ -19,6 +19,7 @@ import com.inbbank.exception.InvalidUserException;
 import com.inbbank.model.Branchmanager;
 import com.inbbank.model.Status;
 import com.inbbank.service.ManagerService;
+import com.inbbank.wsentity.WSAdminLogout;
 import com.inbbank.wsentity.WSBranchManager;
 
 @RestController
@@ -33,7 +34,7 @@ public class ManagerController {
 
 	@Autowired
 	private Gson gson;
-
+	private String logoutMsg = "{\"logoutMsg\" : \"Successfully Loged Out\"}";
 	@RequestMapping(value = "/branchmanager", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public WSBranchManager createBranchManager(@RequestBody Branchmanager branchmanager)throws Exception {
 			return managerService.createBranchManager(branchmanager);
@@ -68,5 +69,12 @@ public class ManagerController {
 			return exceptionJson;
 		}
 
+	}
+	
+	@RequestMapping(value="/branchmanager/logout", method=RequestMethod.PUT,
+			consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String BranchManagerLogOut(@RequestBody WSAdminLogout adminlogout){
+		
+		return logoutMsg;
 	}
 }
