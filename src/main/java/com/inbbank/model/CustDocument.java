@@ -31,6 +31,15 @@ public class CustDocument implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="CUSTID")
 	private Customer customer;
+	@Column(length=50)
+	private String email;
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public CustDocument() {
 	}

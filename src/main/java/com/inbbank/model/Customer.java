@@ -73,10 +73,7 @@ public class Customer implements Serializable {
 	@JoinColumn(name="BRANCHID")
 	private Branch branch;
 
-	//bi-directional many-to-one association to CustDocument
-	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<CustDocument> custDocuments;
-
+	
 	public Customer() {
 	}
 
@@ -249,26 +246,6 @@ public class Customer implements Serializable {
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-	public Set<CustDocument> getCustDocuments() {
-		return this.custDocuments;
-	}
-
-	public void setCustDocuments(Set<CustDocument> custDocuments) {
-		this.custDocuments = custDocuments;
-	}
-
-	public CustDocument addCustDocument(CustDocument custDocument) {
-		getCustDocuments().add(custDocument);
-		custDocument.setCustomer(this);
-
-		return custDocument;
-	}
-
-	public CustDocument removeCustDocument(CustDocument custDocument) {
-		getCustDocuments().remove(custDocument);
-		custDocument.setCustomer(null);
-
-		return custDocument;
-	}
+	
 
 }

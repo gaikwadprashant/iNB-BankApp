@@ -2,14 +2,17 @@ package com.inbbank.dao;
 
 import java.util.List;
 
+import com.inbbank.model.CustDocument;
 import com.inbbank.model.Customer;
 
 public interface CustomerDao {
 
-	boolean createCustomer(Customer customer)throws Exception;
+	Customer createCustomer(Customer customer)throws Exception;
 
 	List<Customer> getCustomer();
-	
-	String unregistereduserEmail(String email)throws Exception;
+
+	boolean unregistereduserEmail(String email)throws Exception;
+
+	boolean uploadDocument(CustDocument custDocument)throws Exception;
 
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,20 +18,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.inbbank.model.Customer;
-import com.inbbank.model.Status;
-import com.inbbank.model.Status2;
-import com.inbbank.service.CustomerService;
-import com.inbbank.wsentity.WSCustomer;
-
 import com.inbbank.model.Account;
 import com.inbbank.model.Branch;
 import com.inbbank.model.CustDocument;
+import com.inbbank.model.Customer;
+import com.inbbank.model.Status;
+import com.inbbank.service.CustomerService;
 import com.inbbank.util.GenerateUUID;
+import com.inbbank.wsentity.WSCustomer;
+
 
 
 
 @RestController
+@CrossOrigin
 //@RequestMapping(value="/customer")
 public class CustomerController {
 	
@@ -40,26 +41,10 @@ public class CustomerController {
 	@Autowired
 	private DozerBeanMapper mapper;
 
-	 @RequestMapping(value="//unregistereduser",  method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,consumes =MediaType.APPLICATION_JSON_VALUE)
-		public Status createCustomer(@RequestBody WSCustomer wscustomer) {
-		 try{
-			 Customer customer = mapper.map(wscustomer, Customer.class);
-			 Branch branch = mapper.map(wscustomer.getBranchPOJO(),Branch.class);
-			 customer.setBranch(branch);
-			 Account account = mapper.map(wscustomer.getAccount(), Account.class);
-			 account.setId(GenerateUUID.getRendomString());
-			 Set<Account> accounts = new HashSet<Account>();
-			 accounts.add(account);
-			 customer.setAccounts(accounts);
-			 //customer.setBranch(wscustomer.getBranchPOJO());
-		 customerService.createCustomer(customer);
-//			LOGGER.info("Employee added Successfully !");
-			return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-		//	LOGGER.error(e.getMessage());
-			return new Status(0, e.toString());
-		}
-
+	 @RequestMapping(value="/unregistereduser",  method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,consumes =MediaType.APPLICATION_JSON_VALUE)
+		public WSCustomer createCustomer(@RequestBody WSCustomer wscustomer) throws Exception {
+		 	 return customerService.createCustomer(wscustomer);
+		
 		}
 	 
 	 @RequestMapping(value="/unregistereduser/details",  method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE,consumes =MediaType.APPLICATION_JSON_VALUE)
@@ -85,27 +70,40 @@ public class CustomerController {
 	 
 //verify email
 	 @RequestMapping(value="/unregistereduser",  method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String unregistereduserEmail(@RequestParam("email") String email) throws Exception {
-		
-			 String status = customerService.unregistereduserEmail(email);
+		public Status unregistereduserEmail(@RequestParam("email") String email) {
+		 try{
+		boolean flag = customerService.unregistereduserEmail(email);
 //			LOGGER.info("Employee added Successfully !");
-		
+		System.out.println(flag);
+		Status status = new Status();
+		if(flag){
+		status.setAlreadyExists("true");
+		}else{
+			status.setAlreadyExists("false");
+		}
 			return status;
-	
+		} catch (Exception e) {
+		//	LOGGER.error(e.getMessage());
+			return new Status(0, e.toString());
+		}
+
 		}
 	 
 	//(@RequestParam("file") MultipartFile file
 		@RequestMapping(value = "/document", method = RequestMethod.POST)
-		public @ResponseBody Status uploadProjectSheet(@RequestParam("addressProof") MultipartFile addressProof,@RequestParam("ageProof") MultipartFile ageProof,@RequestParam("email") String email) {
+		public @ResponseBody Status uploadDocument(@RequestParam("addressProof") MultipartFile addressProof,@RequestParam("ageProof") MultipartFile ageProof,@RequestParam("email") String email) {
 			
 			try {
 				
 				CustDocument custDocument = new CustDocument();
 				custDocument.setImageaddress(addressProof.getBytes());
-				custDocument.setImageaddress(ageProof.getBytes());
+				custDocument.setImageage(ageProof.getBytes());
+				custDocument.setEmail(email);
+				customerService.uploadDocument(custDocument);
 				return new Status();
 				
 			} catch (Exception e) {
 				return new Status(0, e.toString());
 			}
-		}}
+		}
+}
