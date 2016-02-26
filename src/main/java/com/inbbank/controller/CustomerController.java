@@ -10,6 +10,7 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,10 +21,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 
+
+
+
+
+
+
+
+
+import com.inbbank.model.Account;
 import com.inbbank.model.CustDocument;
 import com.inbbank.model.Customer;
 import com.inbbank.model.Status;
 import com.inbbank.service.CustomerService;
+import com.inbbank.service.IBankMailService;
+import com.inbbank.wsentity.WSAccount;
+import com.inbbank.wsentity.WSBranchCustomer;
 import com.inbbank.wsentity.WSCustomer;
 
 @RestController
@@ -36,7 +49,9 @@ public class CustomerController {
 	
 	@Autowired
 	private DozerBeanMapper mapper;
-
+	@Autowired
+	IBankMailService iBankMailService;
+	
 	 @RequestMapping(value="/unregistereduser",  method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,consumes =MediaType.APPLICATION_JSON_VALUE)
 		public WSCustomer createCustomer(@RequestBody WSCustomer wscustomer) throws Exception {
 		 	 return customerService.createCustomer(wscustomer);
@@ -101,5 +116,75 @@ public class CustomerController {
 			} catch (Exception e) {
 				return new Status(0, e.toString());
 			}
+		}
+		
+		
+		
+		
+		@RequestMapping(value = "/authorisation/{clientId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public WSCustomer login(@PathVariable(value = "clientId") int clientId) {
+			// DONE
+			return customerService.isClientAuthorized(clientId);
+		}
+
+		@RequestMapping(value = "/registeredcustomer/{clientId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public WSCustomer registeredCustomer(@PathVariable(value = "clientId") int clientId) {
+			// DONE
+			return customerService.registeredCustomer(clientId);
+		}
+		
+		@RequestMapping(value = "/registeredcustomer", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+		public WSCustomer getRegisteredCustomer(@RequestBody Customer customer) {
+			// DONE
+			WSCustomer wSCustomer = customerService.getRegisteredCustomer(customer);
+			
+			if (wSCustomer.getEmail() != null) {
+				iBankMailService.sendMail("info.inbbank@gmail.com", "arun.agrawal@Xoriant.Com"/*customer.getEmail()*/, "Wel Come to IBank",
+						"See you after mail ");
+			}
+			return wSCustomer;
+		}
+		
+		@RequestMapping(value = "/registeredcustomer/account/{clientId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public WSAccount viewAccountBalance(@PathVariable(value = "clientId") int clientId) {
+			// DONE
+			return customerService.viewAccountBalance(clientId);
+		}
+		
+		
+		@RequestMapping(value = "/clientHome/transferMoney", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+		public Account transferMoney(@RequestBody Account sender,@RequestBody Account reciever) {
+			System.out.println("sender.getBalance() is  " + sender.getBalance());
+			Account account = customerService.transferMoney(sender,reciever);
+			return account;
+		}
+		
+
+		
+		/**
+		 * For Branch Manager Viewing UnRegistered User Details
+		 * @return
+		 */
+		@RequestMapping(value = "/unregistereduser/details", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public List<WSBranchCustomer> getAllUnregisteredUsers(){
+			return customerService.getAllUnregisteredUsers();
+		}
+		
+		/**
+		 * For Branch Manager Viewing Registered User Details
+		 * @return
+		 */
+		@RequestMapping(value = "/registeredcustomer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public List<WSBranchCustomer> getAllRegisteredUsers(){
+			return customerService.getAllRegisteredUsers();
+		}
+		
+		/**
+		 * For Branch Manager Viewing Rejected User Details
+		 * @return
+		 */
+		@RequestMapping(value = "/rejectededcustomer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public List<WSBranchCustomer> getAllRejectedUsers(){
+			return customerService.getAllRejectedUsers();
 		}
 }

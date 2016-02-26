@@ -4,9 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
-import com.inbbank.model.Branch;
 
-public class WSCustomer {
+public class WSBranchCustomer {
 
 	private String id;
 
@@ -192,14 +191,5 @@ public class WSCustomer {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	private String exception;
-
-	public String getException() {
-		return exception;
-	}
-
-	public void setException(String exception) {
-		this.exception = exception;
 	}
 }
