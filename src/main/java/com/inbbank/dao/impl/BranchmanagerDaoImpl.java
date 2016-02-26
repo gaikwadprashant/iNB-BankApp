@@ -5,12 +5,14 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inbbank.dao.BranchmanagerDao;
+import com.inbbank.model.Branch;
 import com.inbbank.model.Branchmanager;
 import com.inbbank.util.GenerateUUID;
 
@@ -22,6 +24,10 @@ public class BranchmanagerDaoImpl implements BranchmanagerDao {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void createBranchManager(Branchmanager branchManager) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Branch.class);
+		criteria.add(Restrictions.eq("branchName", branchManager.getBranch().getBranchName()));
+		Branch branch = (Branch) criteria.uniqueResult();
+		branchManager.setBranch(branch);
 		sessionFactory.getCurrentSession().save(branchManager);
 	}
 
