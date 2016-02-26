@@ -37,7 +37,7 @@ public class BranchController {
 		}
 	}
 
-	@RequestMapping(value = "/branch", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/branch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<WSBranch> getBranch() {
 		List<Branch> branches = null;
 		List<WSBranch> branchList = new ArrayList<WSBranch>();
@@ -54,8 +54,20 @@ public class BranchController {
 		return branchList;
 	}
 	
-	@RequestMapping(value = "/branch/", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/branch/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<WSBranch> getAllBranch() {
-		return getBranch();
+		List<Branch> branches = null;
+		List<WSBranch> branchList = new ArrayList<WSBranch>();
+		try {
+
+			branches = branchService.getBranches();
+			for (Branch customer : branches) {
+				branchList.add(mapper.map(customer, WSBranch.class));
+			}
+
+		} catch (Exception e) {
+			
+		}
+		return branchList;
 	}
 }
