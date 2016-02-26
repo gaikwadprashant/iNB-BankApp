@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inbbank.dao.CustomerDao;
 import com.inbbank.model.Customer;
@@ -24,4 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.getCustomer();
 	}
 
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
+	public String unregistereduserEmail(String email) throws Exception {
+		return customerDao.unregistereduserEmail(email);
+	}
 }

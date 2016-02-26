@@ -10,4 +10,6 @@ public interface CustomerService {
 
 	List<Customer>  getCustomer();
 
+	String unregistereduserEmail(String email)throws Exception;;
+
 }

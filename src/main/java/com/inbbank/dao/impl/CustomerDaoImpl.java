@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -39,6 +40,21 @@ public class CustomerDaoImpl implements CustomerDao {
 		criteria.createAlias("branch", "branch");
 		List<Customer> custmerList = criteria.list();
 		return custmerList;
+	}
+	
+	
+	public String unregistereduserEmail(String email) throws Exception {
+		
+		String falseData = "{alreadyExists : false}";
+		String trueData = "{alreadyExists : true}";
+		Criteria cr = sessionFactory.getCurrentSession().createCriteria(Customer.class);
+		cr.add(Restrictions.ilike("email", email));
+		List<Customer> list = cr.list();
+		if(list != null && ! list.isEmpty()){
+			return trueData;
+		}
+		return falseData;
+		
 	}
 
 }

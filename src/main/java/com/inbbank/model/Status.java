@@ -1,9 +1,18 @@
 package com.inbbank.model;
 
 public class Status {
-
+	private String alreadyExists;
 	private int code;
 	private String message;
+	
+
+	public String getAlreadyExists() {
+		return alreadyExists;
+	}
+
+	public void setAlreadyExists(String alreadyExists) {
+		this.alreadyExists = alreadyExists;
+	}
 
 	public Status() {
 	}

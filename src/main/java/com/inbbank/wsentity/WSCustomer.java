@@ -2,12 +2,11 @@ package com.inbbank.wsentity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 import com.inbbank.model.Branch;
 
-
 public class WSCustomer {
-	
 
 	private String id;
 
@@ -36,10 +35,44 @@ public class WSCustomer {
 	private BigDecimal phone;
 
 	private String userName;
+
 	private WSBranch branch;
-	
-	
-	
+	private Set<WSAccount> accounthash;
+	private Set<WSAccount> accounts;
+	private WSAccount account;
+	private WSBranch branchPOJO;
+
+	public WSBranch getBranchPOJO() {
+		return branchPOJO;
+	}
+
+	public void setBranchPOJO(WSBranch branchPOJO) {
+		this.branchPOJO = branchPOJO;
+	}
+
+	public WSAccount getAccount() {
+		return account;
+	}
+
+	public void setAccount(WSAccount account) {
+		this.account = account;
+	}
+
+	public Set<WSAccount> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<WSAccount> accounts) {
+		this.accounts = accounts;
+	}
+
+	public Set<WSAccount> getAccounthash() {
+		return accounthash;
+	}
+
+	public void setAccounthash(Set<WSAccount> accounthash) {
+		this.accounthash = accounthash;
+	}
 
 	public WSBranch getBranch() {
 		return branch;
@@ -160,6 +193,4 @@ public class WSCustomer {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-
 }
