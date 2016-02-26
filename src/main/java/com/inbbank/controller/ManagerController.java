@@ -33,17 +33,12 @@ public class ManagerController {
 	private Gson gson;
 
 	@RequestMapping(value = "/branchmanager", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Status createBranchManager(@RequestBody Branchmanager branchmanager) {
-		try {
-			managerService.createBranchManager(branchmanager);
-			return new Status(1, "Branch Manager created Successfully !");
-		} catch (Exception e) {
-			return new Status(0, e.toString());
-		}
+	public WSBranchManager createBranchManager(@RequestBody Branchmanager branchmanager)throws Exception {
+			return managerService.createBranchManager(branchmanager);
 
 	}
 
-	@RequestMapping(value = "/branchmanager", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/branchmanager", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<WSBranchManager> getBranchManagers() {
 		List<Branchmanager> branchManagers = null;
 		List<WSBranchManager> wsBranchManagers = new ArrayList<WSBranchManager>();

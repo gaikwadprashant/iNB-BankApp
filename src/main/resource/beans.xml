@@ -37,6 +37,8 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 				<value>com.inbbank.model.Branchmanager</value>
 				<value>com.inbbank.model.CustDocument</value>
 				<value>com.inbbank.model.Customer</value>
+				<value>com.inbbank.model.Admin</value>
+				
 			</list>
 		</property>
 		<property name="hibernateProperties">

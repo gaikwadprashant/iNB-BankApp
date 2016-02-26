@@ -28,13 +28,10 @@ public class BranchController {
 	private DozerBeanMapper mapper;
 
 	@RequestMapping(value = "/branch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Status createBranch(@RequestBody Branch branch) {
-		try {
-			branchService.createBranch(branch);
-			return new Status(1, "Branch Created Successfully !!");
-		} catch (Exception e) {
-			return new Status(0, e.toString());
-		}
+	public WSBranch createBranch(@RequestBody Branch branch)throws Exception {
+		
+			return branchService.createBranch(branch);
+			
 	}
 
 	@RequestMapping(value = "/branch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

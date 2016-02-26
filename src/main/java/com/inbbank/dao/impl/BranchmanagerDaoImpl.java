@@ -21,9 +21,8 @@ public class BranchmanagerDaoImpl implements BranchmanagerDao {
 	private SessionFactory sessionFactory;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public String createBranchManager(Branchmanager branchManager) {
-		branchManager.setId(GenerateUUID.getRendomString());
-		return (String) sessionFactory.getCurrentSession().save(branchManager);
+	public void createBranchManager(Branchmanager branchManager) {
+		sessionFactory.getCurrentSession().save(branchManager);
 	}
 
 	@SuppressWarnings("unchecked")

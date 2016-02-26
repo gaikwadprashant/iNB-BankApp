@@ -2,6 +2,7 @@ package com.inbbank.service.impl;
 
 import java.util.List;
 
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -11,6 +12,8 @@ import com.inbbank.dao.BranchmanagerDao;
 import com.inbbank.exception.InvalidUserException;
 import com.inbbank.model.Branchmanager;
 import com.inbbank.service.ManagerService;
+import com.inbbank.util.GenerateUUID;
+import com.inbbank.wsentity.WSBranchManager;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
@@ -18,8 +21,15 @@ public class ManagerServiceImpl implements ManagerService {
 	@Autowired
 	private BranchmanagerDao branchmanagerDao;
 
-	public void createBranchManager(Branchmanager branchmanager) throws Exception {
+	@Autowired
+	private DozerBeanMapper mapper;
+	
+	public WSBranchManager createBranchManager(Branchmanager branchmanager) throws Exception {
+		
+		branchmanager.setId(GenerateUUID.getRendomString());
 		branchmanagerDao.createBranchManager(branchmanager);
+		WSBranchManager wsBranchManager = mapper.map(branchmanager, WSBranchManager.class);
+		return wsBranchManager;
 	}
 
 	public List<Branchmanager> getBranchManagers() throws Exception {

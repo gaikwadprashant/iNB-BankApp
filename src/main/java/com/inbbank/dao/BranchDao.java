@@ -6,7 +6,7 @@ import com.inbbank.model.Branch;
 
 public interface BranchDao {
 
-	boolean createBranch(Branch branch) throws Exception;
+	void createBranch(Branch branch) throws Exception;
 
 	List<Branch> getBranches() throws Exception;
 

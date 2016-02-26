@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.inbbank.exception.InvalidUserException;
 import com.inbbank.model.Branchmanager;
+import com.inbbank.wsentity.WSBranchManager;
 
 public interface ManagerService {
-	public void createBranchManager(Branchmanager branchmanager) throws Exception;
+	public WSBranchManager createBranchManager(Branchmanager branchmanager) throws Exception;
 
 	public List<Branchmanager> getBranchManagers() throws Exception;
 

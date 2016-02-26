@@ -21,10 +21,9 @@ public class BranchDaoImpl implements BranchDao {
 		return null;
 	}
 
-	public boolean createBranch(Branch branch) throws Exception {
+	public void createBranch(Branch branch) throws Exception {
 			branch.setId(GenerateUUID.getRendomString());
 			sessionFactory.getCurrentSession().save(branch);
-		return true;
 	}
 
 	public List<Branch> getBranches() throws Exception {
