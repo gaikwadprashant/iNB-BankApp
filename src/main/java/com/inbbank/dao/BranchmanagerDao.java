@@ -8,4 +8,6 @@ public interface BranchmanagerDao {
 	public String createBranchManager(Branchmanager branchmanager);
 
 	public List<Branchmanager> getBranchManagers();
+
+	public List<Branchmanager> getBMByUserNameAndPassword(String userName, String password, String branchName);
 }

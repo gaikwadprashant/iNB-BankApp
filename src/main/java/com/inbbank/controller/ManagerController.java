@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.inbbank.dto.ExceptionDto;
+import com.inbbank.dto.UserDto;
+import com.inbbank.exception.InvalidUserException;
 import com.inbbank.model.Branchmanager;
-import com.inbbank.model.Customer;
 import com.inbbank.model.Status;
 import com.inbbank.service.ManagerService;
 import com.inbbank.wsentity.WSBranchManager;
-import com.inbbank.wsentity.WSCustomer;
 
 @RestController
 public class ManagerController {
@@ -26,6 +28,9 @@ public class ManagerController {
 
 	@Autowired
 	private DozerBeanMapper mapper;
+
+	@Autowired
+	private Gson gson;
 
 	@RequestMapping(value = "/branchmanager", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Status createBranchManager(@RequestBody Branchmanager branchmanager) {
@@ -50,5 +55,21 @@ public class ManagerController {
 		} catch (Exception e) {
 		}
 		return wsBranchManagers;
+	}
+
+	@RequestMapping(value = "/branchmanager/login", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String branchManagerLogin(@RequestBody UserDto userDto) {
+		try {
+			Branchmanager branchmanager = managerService.authenticateBranchManager(userDto.getUserName(),
+					userDto.getPassword(), userDto.getBranchName());
+			WSBranchManager wsBranchManagers = mapper.map(branchmanager, WSBranchManager.class);
+			String branchManagerJson = gson.toJson(wsBranchManagers);
+			return branchManagerJson;
+		} catch (InvalidUserException e) {
+			ExceptionDto ExceptionDto = new ExceptionDto(e.getMessage());
+			String exceptionJson = gson.toJson(ExceptionDto);
+			return exceptionJson;
+		}
+
 	}
 }

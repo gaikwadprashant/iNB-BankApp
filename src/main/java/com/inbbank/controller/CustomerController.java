@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.inbbank.model.Customer;
 import com.inbbank.model.Status;
-import com.inbbank.model.Status2;
 import com.inbbank.service.CustomerService;
 import com.inbbank.wsentity.WSCustomer;
 
