@@ -22,7 +22,6 @@ public class BranchmanagerDaoImpl implements BranchmanagerDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED)
 	public void createBranchManager(Branchmanager branchManager) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Branch.class);
 		criteria.add(Restrictions.eq("branchName", branchManager.getBranch().getBranchName()));
@@ -32,7 +31,7 @@ public class BranchmanagerDaoImpl implements BranchmanagerDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(propagation = Propagation.NOT_SUPPORTED)
+
 	public List<Branchmanager> getBranchManagers() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Branchmanager.class);
 		criteria.createAlias("branch", "branch");
