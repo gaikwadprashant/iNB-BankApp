@@ -57,10 +57,10 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 		/>
 		
 	<bean id="mapper" class="org.dozer.DozerBeanMapper"/>
-		<bean id="multipartResolver"
+		<!-- <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="268435456" /> <!-- 256 megs -->
-	</bean>
+		<property name="maxUploadSize" value="268435456" /> 256 megs
+	</bean> -->
 	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
               <property name="host" value="smtp.gmail.com" />
