@@ -16,8 +16,8 @@ import com.google.gson.Gson;
 import com.inbbank.dto.ExceptionDto;
 import com.inbbank.dto.UserDto;
 import com.inbbank.exception.InvalidUserException;
+import com.inbbank.model.Branch;
 import com.inbbank.model.Branchmanager;
-import com.inbbank.model.Status;
 import com.inbbank.service.ManagerService;
 import com.inbbank.wsentity.WSAdminLogout;
 import com.inbbank.wsentity.WSBranchManager;
@@ -35,9 +35,14 @@ public class ManagerController {
 	@Autowired
 	private Gson gson;
 	private String logoutMsg = "{\"logoutMsg\" : \"Successfully Loged Out\"}";
+
 	@RequestMapping(value = "/branchmanager", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public WSBranchManager createBranchManager(@RequestBody Branchmanager branchmanager)throws Exception {
-			return managerService.createBranchManager(branchmanager);
+	public WSBranchManager createBranchManager(@RequestBody WSBranchManager wsBranchmanager) throws Exception {
+		Branchmanager branchmanager = mapper.map(wsBranchmanager, Branchmanager.class);
+		Branch branch = new Branch();
+		branch.setBranchName(wsBranchmanager.getBranchPOJO().getBranchName());
+		branchmanager.setBranch(branch);
+		return managerService.createBranchManager(branchmanager);
 
 	}
 
@@ -70,11 +75,10 @@ public class ManagerController {
 		}
 
 	}
-	
-	@RequestMapping(value="/branchmanager/logout", method=RequestMethod.PUT,
-			consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String BranchManagerLogOut(@RequestBody WSAdminLogout adminlogout){
-		
+
+	@RequestMapping(value = "/branchmanager/logout", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public String BranchManagerLogOut(@RequestBody WSAdminLogout adminlogout) {
+
 		return logoutMsg;
 	}
 }

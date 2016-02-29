@@ -14,6 +14,7 @@ public class WSBranchManager {
 	private BigDecimal phone;
 	private String userName;
 	private WSBranch branch;
+	private WSBranch branchPOJO;
 
 	public String getId() {
 		return id;
@@ -93,6 +94,14 @@ public class WSBranchManager {
 
 	public void setBranch(WSBranch branch) {
 		this.branch = branch;
+	}
+
+	public WSBranch getBranchPOJO() {
+		return branchPOJO;
+	}
+
+	public void setBranchPOJO(WSBranch branchPOJO) {
+		this.branchPOJO = branchPOJO;
 	}
 
 }
