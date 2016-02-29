@@ -14,11 +14,13 @@ import java.util.Set;
 
 
 
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 
 
 
@@ -190,6 +192,21 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public String unregisteredUserVerifyReject(String clientId, String email) {
 		return customerDao.unregisteredUserVerifyReject(clientId, email);
+	}
+	
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public WSBranchCustomer getCustomerDetailsById(String id) {
+		Customer customer = customerDao.getCustomerDetailsById(id);
+		WSBranchCustomer wsBranchCustomer = new WSBranchCustomer();
+		if(customer!=null){
+			wsBranchCustomer = mapper.map(customer, WSBranchCustomer.class);
+			Set<WSAccount> wsAccounts = wsBranchCustomer.getAccounts();
+			for(WSAccount wsAccount : wsAccounts)
+				wsBranchCustomer.setAccount(wsAccount);
+			return wsBranchCustomer;
+		}else
+			return null;
+		
 	}
 
 }

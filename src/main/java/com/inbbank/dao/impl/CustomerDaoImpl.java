@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
 import com.inbbank.dao.CustomerDao;
 import com.inbbank.model.Account;
 import com.inbbank.model.Branch;
@@ -178,6 +179,14 @@ public Customer getClientDetails(int id) {
 		customer.setApplicationStatus(ApplicationStatus.REJECTED.getValue());
 		sessionFactory.getCurrentSession().save(customer);
 		return "{ \"Success\": \"Email sent\"}";
+	}
+	
+	public Customer getCustomerDetailsById(String id) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Customer.class);
+		criteria.createAlias("branch", "branch",JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("accounts", "accounts",JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("id", id));
+		return (Customer)criteria.uniqueResult();
 	}
 
 }

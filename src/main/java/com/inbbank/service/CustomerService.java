@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import com.inbbank.model.Account;
 import com.inbbank.model.CustDocument;
 import com.inbbank.model.Customer;
@@ -48,4 +49,6 @@ public WSCustomer isClientAuthorized(int clientId);
 	public List<WSBranchCustomer> getAllRejectedUsers();
 	
 	public String unregisteredUserVerifyReject(String clientId,String email);
+
+	WSBranchCustomer getCustomerDetailsById(String id);
 }

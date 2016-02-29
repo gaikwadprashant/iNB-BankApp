@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import com.inbbank.model.Account;
 import com.inbbank.model.CustDocument;
 import com.inbbank.model.Customer;
@@ -50,4 +51,6 @@ public Customer getClientDetails(int id) ;
 	public List<Customer> getAllRejectedUsers();
 	
 	public String unregisteredUserVerifyReject(String clientId,String email);
+
+	Customer getCustomerDetailsById(String id);
 }

@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 
+
 import com.inbbank.model.Account;
 import com.inbbank.model.CustDocument;
 import com.inbbank.model.Customer;
@@ -117,7 +118,7 @@ public class CustomerController {
 				return new Status(0, e.toString());
 			}
 		}
-		
+		 
 		
 		
 		
@@ -186,5 +187,11 @@ public class CustomerController {
 		@RequestMapping(value = "/rejectededcustomer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 		public List<WSBranchCustomer> getAllRejectedUsers(){
 			return customerService.getAllRejectedUsers();
+		}
+		
+		@RequestMapping(value = "/unregistereduser/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public WSBranchCustomer getCustomerDetailsById(@PathVariable(value="id") String id){
+			
+			return customerService.getCustomerDetailsById(id);
 		}
 }
